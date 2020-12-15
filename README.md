@@ -1,4 +1,4 @@
-# 42Seoul_hackathon_2020_12_16-2020_12_18
+# book42book
 
 ## 팀원 목록!
 
