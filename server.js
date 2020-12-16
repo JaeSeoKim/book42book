@@ -6,9 +6,9 @@ import cookieParser from "cookie-parser";
 import passport from "passport";
 import "./src/auth";
 import "./src/db";
-import "./models/User";
-import "./models/Book";
-import "./models/BookInfo";
+import User from "./models/User";
+import Book from "./models/Book";
+import BookInfo from "./models/BookInfo";
 
 const dev = process.env.NODE_ENV !== "production";
 if (dev) require("dotenv").config();
@@ -55,6 +55,11 @@ app.prepare().then(() => {
   );
 
   server.all("*", (req, res) => {
+    req.db = {
+      User,
+      Book,
+      BookInfo,
+    };
     return handle(req, res);
   });
 

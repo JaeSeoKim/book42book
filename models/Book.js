@@ -9,6 +9,10 @@ const BookSchema = new mongoose.Schema({
   2 : 분실
   3 : 파손
   */
+  book_info: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "BookInfo",
+  },
   render_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
