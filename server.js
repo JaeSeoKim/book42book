@@ -41,6 +41,10 @@ app.prepare().then(() => {
       failureRedirect: "/login",
     })
   );
+  server.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+  });
 
   server.get(
     "/auth/42/callback",
