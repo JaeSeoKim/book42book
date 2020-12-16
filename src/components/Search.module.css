@@ -1,0 +1,13 @@
+.wrapper {
+	color: red;
+	background-color: rosybrown;
+	grid-template-columns: 200px 500px 100px;
+	grid-template-rows: 100px 100px 100px;
+	display: grid;
+}
+
+.item1 {
+	display: flex;
+	grid-column-start: 1;
+	grid-column-end: 4;
+}
