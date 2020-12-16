@@ -1,10 +1,21 @@
+import Link from "next/link";
 import React from "react";
 
-const Header = ({ num }) => {
+const Header = ({ user }) => {
   return (
-    <>
-      <div>1234</div>
-      <p>123</p>
-    </>
+    <header>
+      {user ? (
+        <div>
+          <Link href={"/user"}>{user.intra_id}</Link>
+          <a a href={"/logout"}>
+            logout
+          </a>
+        </div>
+      ) : (
+        <a href={"/login"}>login</a>
+      )}
+    </header>
   );
 };
+
+export default Header;
