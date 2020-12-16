@@ -30,7 +30,7 @@ passport.use(
         const newUser = await User.create({
           id: profile.id,
           intra_id: profile.username,
-          level: isStaff ? 0 : 3,
+          level: isStaff ? 3 : 1,
         });
         return cb(null, newUser);
       } catch (error) {

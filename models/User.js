@@ -1,9 +1,9 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-  id : {type: Number, required: "Id is Required"},
-  intra_id: { type: String, required: 'Name is Required' },
-  level: {type: Number, required: 'Level is Required'},
+  id: { type: Number, required: "Id is Required", unique: true },
+  intra_id: { type: String, required: "Name is Required", unique: true },
+  level: { type: Number, required: "Level is Required" },
   /*
   level 1 : cadet
   level 2 : librarian
@@ -12,11 +12,11 @@ const UserSchema = new mongoose.Schema({
   rental_list: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Book'
-    }
-  ]
-})
+      ref: "Book",
+    },
+  ],
+});
 
-const model = mongoose.model('User', UserSchema)
+const model = mongoose.model("User", UserSchema);
 
-export default model
+export default model;

@@ -2,6 +2,7 @@ import next from "next";
 import express from "express";
 import session from "express-session";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import passport from "passport";
 import "./src/auth";
 import "./src/db";
@@ -19,19 +20,27 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
+  server.use(cookieParser(process.env.COOKIE_SECRET));
+  server.use(bodyParser.json());
+  server.use(bodyParser.urlencoded({ extended: false }));
   server.use(
     session({
-      secret: "keyboard cat",
+      secret: process.env.SESSION_SECRET,
       resave: false,
-      saveUninitialized: true,
-      cookie: { secure: true },
+      saveUninitialized: false,
+      cookie: { secure: false },
     })
   );
-  server.use(bodyParser.urlencoded({ extended: false }));
   server.use(passport.initialize());
   server.use(passport.session());
 
-  server.get("/auth/42", passport.authenticate("42"));
+  server.get(
+    "/login",
+    passport.authenticate("42", {
+      successRedirect: "/",
+      failureRedirect: "/login",
+    })
+  );
 
   server.get(
     "/auth/42/callback",
