@@ -7,12 +7,12 @@ const Header = ({ user }) => {
       {user ? (
         <div>
           <Link href={"/user"}>{user.intra_id}</Link>
-          <a a href={"/logout"}>
+          <Link a href={"/logout"}>
             logout
-          </a>
+          </Link>
         </div>
       ) : (
-        <a href={"/login"}>login</a>
+        <Link href={"/login"}>login</Link>
       )}
     </header>
   );

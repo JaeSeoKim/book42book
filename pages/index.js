@@ -7,7 +7,6 @@ import Header from "../src/components/Header";
 const Home = ({ user }) => {
   return (
     <div>
-      <Header user={user} />
     </div>
   );
 };
