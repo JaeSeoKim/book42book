@@ -5,7 +5,7 @@ export default async (req, res) => {
     const bookList = await req.db.BookInfo.find();
     const filteredData = bookList.filter((book) => {
       const searchQuery = q.toLowerCase().trim();
-      const { name, author, publisher } = book;
+      const { name, author } = book;
       return (
         (name && name.toLowerCase().includes(searchQuery)) ||
         (author && author.toLowerCase().includes(searchQuery))

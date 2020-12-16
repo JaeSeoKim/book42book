@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
-  id: { type: Number, required: "Id is Required", unique: true },
+  user_id: { type: Number, required: "Id is Required", unique: true },
   intra_id: { type: String, required: "Name is Required", unique: true },
   level: { type: Number, required: "Level is Required" },
   /*
@@ -12,11 +12,11 @@ const UserSchema = new mongoose.Schema({
   rental_list: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Book",
+      ref: "book",
     },
   ],
 });
 
-const model = mongoose.model("User", UserSchema);
+const model = mongoose.model("user", UserSchema);
 
 export default model;

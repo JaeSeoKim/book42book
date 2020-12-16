@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const BookSchema = new mongoose.Schema({
-  id: { type: String, required: "Id is Required", unique: true },
+  book_id: { type: String, required: "Id is Required" },
   status: { type: Number, required: "Status is Required" },
   /*
   0 : 대출 가능
@@ -11,16 +11,16 @@ const BookSchema = new mongoose.Schema({
   */
   book_info: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "BookInfo",
+    ref: "bookinfo",
   },
   render_id: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    ref: "user",
   },
-  rental_date: { type: Date, default: Date.now },
+  rental_date: { type: Date },
   donater: String,
 });
 
-const model = mongoose.model("Book", BookSchema);
+const model = mongoose.model("book", BookSchema);
 
 export default model;

@@ -34,13 +34,15 @@ app.prepare().then(() => {
   server.use(passport.initialize());
   server.use(passport.session());
 
-  server.get(
-    "/login",
+  server.get("/login", (req, res, next) => {
     passport.authenticate("42", {
-      successRedirect: "/",
       failureRedirect: "/login",
-    })
-  );
+    })(req, res, next);
+    const { path } = req.query;
+    if (path) res.redirect(path);
+    else res.redirect("/");
+  });
+
   server.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
