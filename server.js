@@ -36,23 +36,23 @@ app.prepare().then(() => {
 
   server.get("/login", (req, res, next) => {
     passport.authenticate("42", {
+      successRedirect: "/kiosk",
       failureRedirect: "/login",
     })(req, res, next);
-    const { path } = req.query;
-    if (path) res.redirect(path);
-    else res.redirect("/");
   });
 
   server.get("/logout", (req, res) => {
     req.logout();
-    res.redirect("/");
+    req.session.save(() => {
+      res.redirect("/kiosk");
+    });
   });
 
   server.get(
     "/auth/42/callback",
     passport.authenticate("42", { failureRedirect: "/login" }),
     (req, res) => {
-      res.redirect("/");
+      res.redirect("/kiosk");
     }
   );
 

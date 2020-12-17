@@ -43,6 +43,7 @@ export default async (req, res) => {
         }
         res.status(200).json({ ok: true, BookInfo: result });
       } catch (error) {
+        console.log(error);
         res
           .status(200)
           .json({ ok: false, BookInfo: null, msg: "Someting was Wrong..." });
@@ -50,10 +51,9 @@ export default async (req, res) => {
       break;
     case "DELETE":
       try {
-        const { rentalList } = req.body;
+        const { returnList } = req.body;
         let result = [];
-
-        for (const book_id of rentalList) {
+        for (const book_id of returnList) {
           try {
             const Book = await req.db.Book.findOne({ book_id });
             console.log(Book);
@@ -81,6 +81,7 @@ export default async (req, res) => {
         }
         res.status(200).json({ ok: true, BookInfo: result });
       } catch (error) {
+        console.log(error);
         res
           .status(200)
           .json({ ok: false, BookInfo: null, msg: "Someting was Wrong..." });
