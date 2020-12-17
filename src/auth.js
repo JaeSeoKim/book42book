@@ -22,13 +22,13 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, cb) => {
       try {
-        const isExistUser = await User.findOne({ id: profile.id });
+        const isExistUser = await User.findOne({ user_id: profile.id });
         if (isExistUser) {
           return cb(null, isExistUser);
         }
         const isStaff = profile["staff?"];
         const newUser = await User.create({
-          id: profile.id,
+          user_id: profile.id,
           intra_id: profile.username,
           level: isStaff ? 3 : 1,
         });

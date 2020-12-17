@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { GlobalStyles } from 'twin.macro'
 import { CacheProvider } from '@emotion/react'
 import { cache } from '@emotion/css'

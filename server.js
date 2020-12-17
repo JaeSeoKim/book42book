@@ -6,9 +6,9 @@ import cookieParser from "cookie-parser";
 import passport from "passport";
 import "./src/auth";
 import "./src/db";
-import "./models/User";
-import "./models/Book";
-import "./models/BookInfo";
+import User from "./models/User";
+import Book from "./models/Book";
+import BookInfo from "./models/BookInfo";
 
 const dev = process.env.NODE_ENV !== "production";
 if (dev) require("dotenv").config();
@@ -34,23 +34,34 @@ app.prepare().then(() => {
   server.use(passport.initialize());
   server.use(passport.session());
 
-  server.get(
-    "/login",
+  server.get("/login", (req, res, next) => {
     passport.authenticate("42", {
-      successRedirect: "/",
+      successRedirect: "/kiosk",
       failureRedirect: "/login",
-    })
-  );
+    })(req, res, next);
+  });
+
+  server.get("/logout", (req, res) => {
+    req.logout();
+    req.session.save(() => {
+      res.redirect("/kiosk");
+    });
+  });
 
   server.get(
     "/auth/42/callback",
     passport.authenticate("42", { failureRedirect: "/login" }),
     (req, res) => {
-      res.redirect("/");
+      res.redirect("/kiosk");
     }
   );
 
   server.all("*", (req, res) => {
+    req.db = {
+      User,
+      Book,
+      BookInfo,
+    };
     return handle(req, res);
   });
 
