@@ -4,7 +4,8 @@ export default async (req, res) => {
   switch (method) {
     case "GET":
       try {
-        const result = await req.db.BookInfo.findById(req.query.id)
+        const { id } = req.query;
+        const result = await req.db.BookInfo.findById(id)
           .populate("book")
           .populate({
             path: "book",
@@ -18,8 +19,16 @@ export default async (req, res) => {
       break;
     case "POST":
       try {
-        if (!req.user || req.user.level == 1) throw Error;
-        const result = await req.db.BookInfo.create({ ...req.body, book: [] });
+        if (!req.user || req.user.level < 2) throw Error;
+
+        const { name, author, publisher } = req.body;
+
+        const result = await req.db.BookInfo.create({
+          name,
+          author,
+          publisher,
+          book: [],
+        });
         res.status(200).json({ ok: true, BookInfo: result });
       } catch (error) {
         console.log(error);
@@ -28,9 +37,9 @@ export default async (req, res) => {
       break;
     case "PUT":
       try {
-        if (!req.user || req.user.level == 1) throw Error;
-        const { book_id, book_info, donater } = req.body;
-        const bookInfo = await req.db.BookInfo.findById(book_info);
+        if (!req.user || req.user.level < 2) throw Error;
+        const { book_id, bookinfo_id, donater } = req.body;
+        const bookInfo = await req.db.BookInfo.findById(bookinfo_id);
 
         const result = await req.db.Book.create({
           book_id: book_id,

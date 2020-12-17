@@ -1,12 +1,20 @@
+require("dotenv").config();
+
 export default async (req, res) => {
   const { method } = req;
 
   switch (method) {
     case "POST":
       try {
-        if (!req.user) throw Error;
         const { rentalList } = req.body;
+        if (!req.user || rentalList.length > process.env.RENT_LIMIT)
+          throw Error;
         const User = await req.db.User.findOne({ user_id: req.user.user_id });
+        if (
+          rentalList.length + User.rental_list.length >
+          process.env.RENT_LIMIT
+        )
+          throw Error;
 
         let result = [];
 
@@ -23,14 +31,21 @@ export default async (req, res) => {
               });
               await Book.save();
               result.push({ book_id, ok: true });
-            } else result.push({ book_id, ok: false });
+            } else
+              result.push({
+                book_id,
+                ok: false,
+                msg: "대여가 불가능한 도서입니다.",
+              });
           } catch (error) {
             result.push({ book_id, ok: false });
           }
         }
         res.status(200).json({ ok: true, BookInfo: result });
       } catch (error) {
-        res.status(200).json({ ok: false, BookInfo: null });
+        res
+          .status(200)
+          .json({ ok: false, BookInfo: null, msg: "Someting was Wrong..." });
       }
       break;
     case "DELETE":
@@ -53,7 +68,12 @@ export default async (req, res) => {
               });
               await Book.save();
               result.push({ book_id, ok: true });
-            } else result.push({ book_id, ok: false });
+            } else
+              result.push({
+                book_id,
+                ok: false,
+                msg: "대여중인 도서가 아닙니다!",
+              });
           } catch (error) {
             console.log(error);
             result.push({ book_id, ok: false });
@@ -61,7 +81,9 @@ export default async (req, res) => {
         }
         res.status(200).json({ ok: true, BookInfo: result });
       } catch (error) {
-        res.status(200).json({ ok: false, BookInfo: null });
+        res
+          .status(200)
+          .json({ ok: false, BookInfo: null, msg: "Someting was Wrong..." });
       }
       break;
     default:
