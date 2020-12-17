@@ -1,6 +1,6 @@
 import passport from "passport";
 import { Strategy } from "passport-42";
-import User from "../models/User";
+import User from "./models/User";
 
 const dev = process.env.NODE_ENV !== "production";
 if (dev) require("dotenv").config();
