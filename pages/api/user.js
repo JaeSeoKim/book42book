@@ -5,7 +5,12 @@ export default async (req, res) => {
     case "GET":
       try {
         if (!req.user) throw Error;
-        const User = await req.db.User.findOne({ user_id: req.user.user_id });
+        const User = await req.db.User.findOne({ user_id: req.user.user_id })
+          .populate("rental_list")
+          .populate({
+            path: "rental_list",
+            populate: [{ path: "book_info" }],
+          });
 
         res.status(200).json({ ok: true, user: User });
       } catch (error) {

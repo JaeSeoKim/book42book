@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "babel-node server.js",
+    "dev": "babel-node src/server.js",
     "build": "npm run build:next && npm run build:babel",
     "build:next": "next build",
     "build:babel": "babel src -d dist",
