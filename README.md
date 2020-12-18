@@ -8,6 +8,7 @@
 - 소장 도서 검색 기능
 - 집현전 내 무인 반납, 대출 기능
 
+### [Book42Book Wiki](https://github.com/JaeSeoKim/book42book/wiki)
 
 ## 🔖 Team member
 
