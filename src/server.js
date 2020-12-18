@@ -3,6 +3,8 @@ import express from "express";
 import session from "express-session";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
+import mongoose from "mongoose";
+import MongoStore from "connect-mongo";
 import passport from "passport";
 import "./auth";
 import "./db";
@@ -13,6 +15,7 @@ import BookInfo from "./models/BookInfo";
 const dev = process.env.NODE_ENV !== "production";
 if (dev) require("dotenv").config();
 
+const CokieStore = MongoStore(session);
 const port = parseInt(process.env.PORT, 10) || 3000;
 const app = next({ dev });
 const handle = app.getRequestHandler();
@@ -29,6 +32,7 @@ app.prepare().then(() => {
       resave: false,
       saveUninitialized: false,
       cookie: { secure: false },
+      store: new CokieStore({ mongooseConnection: mongoose.connection }),
     })
   );
   server.use(passport.initialize());
