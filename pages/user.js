@@ -1,10 +1,8 @@
 import React from "react";
-import { useState } from "react";
-import { useRouter } from "next/router";
 import tw from "twin.macro";
 import useRequest from "../src/lib/useRequest";
 import Link from "next/link";
-import { Button, Container, Jumbotron, Table } from "reactstrap";
+import { Container, Table } from "reactstrap";
 
 const getReturnDate = (rental_date) => {
   rental_date = Date.parse(rental_date);
