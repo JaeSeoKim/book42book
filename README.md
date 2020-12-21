@@ -15,7 +15,7 @@
 
 [기술 스택](https://github.com/JaeSeoKim/book42book/wiki/%EA%B8%B0%EC%88%A0-%EC%8A%A4%ED%83%9D!)
 
-[API 명세서](https://github.com/JaeSeoKim/book42book/wiki/%EA%B8%B0%ED%9A%8D)
+[API 명세서](https://github.com/JaeSeoKim/book42book/wiki/API-%EB%AA%85%EC%84%B8%EC%84%9C)
 
 ## 🔖 Team member
 
